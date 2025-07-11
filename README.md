@@ -25,6 +25,21 @@
    npm start
    ```
 
+## Dockerでの起動方法
+
+### 1. Docker単体で起動
+```bash
+docker build -t discord-amount-extractor-bot .
+docker run --env-file .env discord-amount-extractor-bot
+```
+
+### 2. docker composeで簡単起動
+```bash
+docker compose up --build -d
+```
+- `.env`ファイルにBotトークンを記載しておけば自動で読み込まれます。
+- 停止は `docker compose down` でOKです。
+
 ## 使い方
 - Botをサーバーに招待し、画像（スクリーンショット）を投稿すると自動で金額を抽出し、半額も返信します。
 - 2つ目のメッセージで「半額の整数値（点なし）」のみをコピー用に送信します。
