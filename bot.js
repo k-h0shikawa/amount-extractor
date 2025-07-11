@@ -8,6 +8,7 @@ const fs = require('fs');
 
 // Discord botのトークンを設定
 const BOT_TOKEN = process.env.DISCORD_AMOUNT_EXTRACTOR_TOKEN;
+const ALLOWED_CHANNEL_ID = process.env.ALLOWED_CHANNEL_ID;
 
 // botクライアントを作成
 const client = new Client({
@@ -45,7 +46,11 @@ client.once('ready', () => {
 
 // メッセージを受信したときの処理
 client.on('messageCreate', async (message) => {
+    // Bot自身のメッセージは無視
     if (message.author.bot) return;
+
+    // チャンネルIDが一致しない場合は無視
+    if (message.channel.id !== ALLOWED_CHANNEL_ID) return;
 
     // 画像の添付ファイルがあるかチェック
     if (message.attachments.size > 0) {
