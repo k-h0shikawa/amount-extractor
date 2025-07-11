@@ -1,0 +1,9 @@
+version: '3.8'
+services:
+  bot:
+    build: .
+    container_name: discord-amount-extractor-bot
+    # .envファイルから環境変数を読み込む
+    env_file:
+      - .env
+    restart: unless-stopped 
