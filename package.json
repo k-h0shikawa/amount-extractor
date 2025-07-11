@@ -1,0 +1,29 @@
+{
+  "name": "discord-amount-extractor-bot",
+  "version": "1.0.0",
+  "description": "スクリーンショットから金額を抽出し半額を計算するDiscord Bot",
+  "main": "bot.js",
+  "scripts": {
+    "start": "node bot.js",
+    "dev": "nodemon bot.js"
+  },
+  "dependencies": {
+    "discord.js": "^14.14.1",
+    "tesseract.js": "^4.1.1",
+    "axios": "^1.6.0",
+    "sharp": "^0.32.6",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "ocr",
+    "japanese",
+    "amount-extraction"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}
