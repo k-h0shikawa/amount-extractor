@@ -9,6 +9,7 @@ const fs = require('fs');
 // Discord botのトークンを設定
 const BOT_TOKEN = process.env.DISCORD_AMOUNT_EXTRACTOR_TOKEN;
 const ALLOWED_CHANNEL_ID = process.env.ALLOWED_CHANNEL_ID;
+const ALLOWED_TEST_CHANNEL_ID = process.env.ALLOWED_TEST_CHANNEL_ID;
 
 // botクライアントを作成
 const client = new Client({
@@ -24,7 +25,7 @@ const preprocessImage = async (imageBuffer) => {
     try {
         // Sharpを使用して画像を最適化
         const processedBuffer = await sharp(imageBuffer)
-            .extract({ left: 500, top: 300, width: 280, height: 200 }) // 必要に応じて調整
+            .extract({ left: 350, top: 525, width: 400, height: 140 }) // 必要に応じて調整
             .greyscale() // グレースケール変換
             .normalize() // コントラスト正規化
             .sharpen() // シャープネス向上
@@ -49,8 +50,13 @@ client.on('messageCreate', async (message) => {
     // Bot自身のメッセージは無視
     if (message.author.bot) return;
 
-    // チャンネルIDが一致しない場合は無視
-    if (message.channel.id !== ALLOWED_CHANNEL_ID) return;
+    // チャンネルIDが許可されていない場合は無視（ALLOWED_CHANNEL_ID または ALLOWED_TEST_CHANNEL_ID）
+    const isAllowedChannel = (
+        (!ALLOWED_CHANNEL_ID && !ALLOWED_TEST_CHANNEL_ID) ||
+        message.channel.id === ALLOWED_CHANNEL_ID ||
+        message.channel.id === ALLOWED_TEST_CHANNEL_ID
+    );
+    if (!isAllowedChannel) return;
 
     // 画像の添付ファイルがあるかチェック
     if (message.attachments.size > 0) {
